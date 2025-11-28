@@ -1,10 +1,11 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 import QRCodeStyling from 'qr-code-styling';
 import { Download, Share2, Settings, Palette } from 'lucide-react';
 
 const qrCode = new QRCodeStyling({
-  width: 300,
-  height: 300,
+  width: 1200, // High resolution
+  height: 1200, // High resolution
   image: "",
   dotsOptions: {
     color: "#4267b2",
@@ -30,6 +31,8 @@ function App() {
 
   useEffect(() => {
     qrCode.update({
+      width: 1200,
+      height: 1200,
       data: url,
       dotsOptions: {
         type: dotType,
@@ -58,29 +61,30 @@ function App() {
 
   const onDownloadClick = () => {
     qrCode.download({
-      extension: "png"
+      extension: "png",
+      name: "digitals-qr"
     });
   };
 
   return (
     <div className="container">
       <div className="left-panel">
-        <h1 className="title">QR Studio</h1>
+        <h1 className="title">Digitals QR Generator</h1>
 
         <div className="card">
           <div className="control-group">
-            <label><Settings size={16} style={{ display: 'inline', marginRight: '8px' }} /> Content</label>
+            <label><Settings size={16} style={{ display: 'inline', marginRight: '8px' }} /> Contenido</label>
             <input
               type="text"
               className="input-field"
               value={url}
               onChange={(e) => setUrl(e.target.value)}
-              placeholder="Enter URL or text..."
+              placeholder="Ingresa URL o texto..."
             />
           </div>
 
           <div className="control-group">
-            <label><Palette size={16} style={{ display: 'inline', marginRight: '8px' }} /> Colors (Gradient)</label>
+            <label><Palette size={16} style={{ display: 'inline', marginRight: '8px' }} /> Colores (Degradado)</label>
             <div className="color-inputs">
               <div className="color-picker-wrapper">
                 <input
@@ -88,7 +92,7 @@ function App() {
                   value={color1}
                   onChange={(e) => setColor1(e.target.value)}
                 />
-                <span>Start</span>
+                <span>Inicio</span>
               </div>
               <div className="color-picker-wrapper">
                 <input
@@ -96,24 +100,24 @@ function App() {
                   value={color2}
                   onChange={(e) => setColor2(e.target.value)}
                 />
-                <span>End</span>
+                <span>Fin</span>
               </div>
             </div>
           </div>
 
           <div className="control-group">
-            <label>Style</label>
+            <label>Estilo</label>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
               <select
                 className="input-field"
                 value={dotType}
                 onChange={(e) => setDotType(e.target.value)}
               >
-                <option value="square">Square</option>
-                <option value="dots">Dots</option>
-                <option value="rounded">Rounded</option>
-                <option value="classy">Classy</option>
-                <option value="classy-rounded">Classy Rounded</option>
+                <option value="square">Cuadrado</option>
+                <option value="dots">Puntos</option>
+                <option value="rounded">Redondeado</option>
+                <option value="classy">Elegante</option>
+                <option value="classy-rounded">Elegante Redondeado</option>
               </select>
 
               <select
@@ -121,16 +125,16 @@ function App() {
                 value={cornerType}
                 onChange={(e) => setCornerType(e.target.value)}
               >
-                <option value="square">Square Corners</option>
-                <option value="extra-rounded">Rounded Corners</option>
-                <option value="dot">Dot Corners</option>
+                <option value="square">Esquinas Cuadradas</option>
+                <option value="extra-rounded">Esquinas Redondeadas</option>
+                <option value="dot">Esquinas Punteadas</option>
               </select>
             </div>
           </div>
 
           <button className="btn" onClick={onDownloadClick}>
             <Download size={20} />
-            Download PNG
+            Descargar PNG
           </button>
         </div>
       </div>
@@ -138,7 +142,7 @@ function App() {
       <div className="preview-container">
         <div className="qr-wrapper" ref={ref} />
         <p style={{ marginTop: '2rem', color: 'var(--text-secondary)', textAlign: 'center' }}>
-          High resolution preview
+          Vista previa de alta resolución
         </p>
       </div>
     </div>
